@@ -1,0 +1,14 @@
+app = "REPLACE-WITH-UNIQUE-NEO4J-APP-NAME"
+primary_region = "REPLACE-WITH-FLY-REGION"
+
+[build]
+  image = "neo4j:5"
+
+[mounts]
+  source = "neo4j_data"
+  destination = "/data"
+
+[vm]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 1

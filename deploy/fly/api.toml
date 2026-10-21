@@ -1,0 +1,38 @@
+app = "REPLACE-WITH-UNIQUE-API-APP-NAME"
+primary_region = "REPLACE-WITH-FLY-REGION"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  HOST = "0.0.0.0"
+  PORT = "8080"
+  RELAY_TARGETS = "neo4j,qdrant"
+  NEO4J_URL = "bolt://REPLACE-WITH-NEO4J-APP-NAME.internal:7687"
+  NEO4J_USER = "neo4j"
+  QDRANT_URL = "http://REPLACE-WITH-QDRANT-APP-NAME.internal:6333"
+  EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
+[processes]
+  web = "python -m ingest.server"
+  relay = "python -m ingest.relay"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["web"]
+
+[[http_service.checks]]
+  grace_period = "15s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  path = "/health"
+
+[vm]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 1

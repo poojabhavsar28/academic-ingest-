@@ -1,0 +1,19 @@
+app = "REPLACE-WITH-UNIQUE-POSTGRES-APP-NAME"
+primary_region = "REPLACE-WITH-FLY-REGION"
+
+[build]
+  image = "postgres:16"
+
+[env]
+  POSTGRES_DB = "ingest"
+  POSTGRES_USER = "postgres"
+  PGDATA = "/var/lib/postgresql/data/pgdata"
+
+[mounts]
+  source = "pg_data"
+  destination = "/var/lib/postgresql/data"
+
+[vm]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1

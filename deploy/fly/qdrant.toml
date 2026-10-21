@@ -1,0 +1,14 @@
+app = "REPLACE-WITH-UNIQUE-QDRANT-APP-NAME"
+primary_region = "REPLACE-WITH-FLY-REGION"
+
+[build]
+  image = "qdrant/qdrant:latest"
+
+[mounts]
+  source = "qdrant_data"
+  destination = "/qdrant/storage"
+
+[vm]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1
